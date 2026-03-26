@@ -7,7 +7,6 @@ import ResultDisplay from './components/ResultDisplay';
 import { TextToSpeech } from './components/TextToSpeech';
 import { VisionScanner } from './components/VisionScanner';
 import { VirtualTryOn } from './components/VirtualTryOn';
-import JimengAI from './components/JimengAI';
 import UserGuide from './components/UserGuide';
 import AffiliateVeo3Module from './components/AffiliateVeo3Module';
 import Login from './components/Login';
@@ -84,7 +83,7 @@ const App = () => {
     }
   });
   const [showApiKeyManager, setShowApiKeyManager] = useState(false);
-  const [activeModule, setActiveModule] = useState<'script' | 'tts' | 'vision' | 'tryon' | 'jimeng' | 'guide' | 'affiliate_veo3'>(() => {
+  const [activeModule, setActiveModule] = useState<'script' | 'tts' | 'vision' | 'tryon' | 'guide' | 'affiliate_veo3'>(() => {
     try {
       const saved = localStorage.getItem('activeModule');
       if (saved === 'affiliate' || saved === 'hacks' || saved === 'troll_video') return 'affiliate_veo3';
@@ -625,12 +624,6 @@ const App = () => {
                 <Mic size={14} /> Giọng Đọc
               </button>
               <button 
-                onClick={() => setActiveModule('jimeng')}
-                className={`flex-1 md:flex-none whitespace-nowrap px-3 md:px-4 py-2 rounded-lg text-[11px] md:text-sm transition-all flex items-center justify-center gap-2 ${activeModule === 'jimeng' ? 'bg-white text-violet-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-              >
-                <Sparkles size={14} /> Prompt Jimeng
-              </button>
-              <button 
                 onClick={() => setActiveModule('tryon')}
                 className={`flex-1 md:flex-none whitespace-nowrap px-3 md:px-4 py-2 rounded-lg text-[11px] md:text-sm transition-all flex items-center justify-center gap-2 ${activeModule === 'tryon' ? 'bg-white text-orange-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
               >
@@ -719,16 +712,6 @@ const App = () => {
               transition={{ duration: 0.3 }}
             >
               <UserGuide onNavigate={setActiveModule} />
-            </motion.div>
-          ) : activeModule === 'jimeng' ? (
-            <motion.div
-              key="jimeng-module"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <JimengAI />
             </motion.div>
           ) : activeModule === 'tryon' ? (
             <motion.div
