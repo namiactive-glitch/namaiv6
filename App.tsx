@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Clapperboard, Sparkles, User, Type, Palette, Check, FileText, MessageCircle, Clock, Mic, Users, RotateCcw, MessageSquare, ArrowLeft, MapPin, Upload, Wand2, Loader2, PlusCircle, MinusCircle, ScanEye, Shirt, LogOut, Key, X, ExternalLink, Eye, EyeOff, RefreshCw, BookOpen, Tag, Video, Image as ImageIcon, Layout, Zap } from 'lucide-react';
+import { Clapperboard, Sparkles, User, Type, Palette, Check, FileText, MessageCircle, Clock, Mic, Users, RotateCcw, MessageSquare, ArrowLeft, MapPin, Upload, Wand2, Loader2, PlusCircle, MinusCircle, ScanEye, Shirt, LogOut, Key, X, ExternalLink, Eye, EyeOff, RefreshCw, BookOpen, Tag, Video, Image as ImageIcon, Layout, Zap, TrendingUp } from 'lucide-react';
 import { Toaster, toast } from 'sonner';
 import CharacterInput from './components/CharacterInput';
 import ResultDisplay from './components/ResultDisplay';
@@ -9,6 +9,7 @@ import { VisionScanner } from './components/VisionScanner';
 import { VirtualTryOn } from './components/VirtualTryOn';
 import UserGuide from './components/UserGuide';
 import AffiliateVeo3Module from './components/AffiliateVeo3Module';
+import MarketingSolutions from './components/MarketingSolutions';
 import Login from './components/Login';
 import ApiKeyManager from './components/ApiKeyManager';
 import { Character, GeneratedData, Theme, StyleOption, ScriptTone } from './types';
@@ -83,7 +84,7 @@ const App = () => {
     }
   });
   const [showApiKeyManager, setShowApiKeyManager] = useState(false);
-  const [activeModule, setActiveModule] = useState<'script' | 'tts' | 'vision' | 'tryon' | 'guide' | 'affiliate_veo3'>(() => {
+  const [activeModule, setActiveModule] = useState<'script' | 'tts' | 'vision' | 'tryon' | 'guide' | 'affiliate_veo3' | 'marketing'>(() => {
     try {
       const saved = localStorage.getItem('activeModule');
       if (saved === 'affiliate' || saved === 'hacks' || saved === 'troll_video') return 'affiliate_veo3';
@@ -641,6 +642,12 @@ const App = () => {
               >
                 <Tag size={14} /> AFFILATE VEO3
               </button>
+              <button 
+                onClick={() => setActiveModule('marketing')}
+                className={`flex-1 md:flex-none whitespace-nowrap px-3 md:px-4 py-2 rounded-lg text-[11px] md:text-sm transition-all flex items-center justify-center gap-2 ${activeModule === 'marketing' ? 'bg-white text-orange-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+              >
+                <TrendingUp size={14} /> GIẢI PHÁP MARKETING
+              </button>
             </div>
             <p className="text-[10px] text-slate-400 mt-1 animate-pulse text-center w-full max-w-full px-4 truncate">
               ← Trượt sang phải để xem thêm ứng dụng →
@@ -742,6 +749,16 @@ const App = () => {
               transition={{ duration: 0.3 }}
             >
               <AffiliateVeo3Module />
+            </motion.div>
+          ) : activeModule === 'marketing' ? (
+            <motion.div
+              key="marketing-module"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <MarketingSolutions />
             </motion.div>
           ) : activeModule === 'tts' ? (
             <motion.div
